@@ -7,7 +7,7 @@ setup(
     name="music",
     author="Frank Lehner",
     version="0.0.1",
-    packeges=find_packages(),
+    packages=find_packages(),
     install_requires=[
         "flask",
         "flask-bootstrap",
@@ -15,6 +15,7 @@ setup(
         "flask-migrate",
         "flask-sqlalchemy",
         "flask-mail",
+        "flask-wtf",
         "wtforms",
         "werkzeug",
         "pyjwt",
