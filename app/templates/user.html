@@ -27,7 +27,14 @@
         </tr>
     </table>
     <hr>
+    <table>
+        <tr>
+            <th>Interpret</th>
+            <th>Titel</th>
+            <th>Zeit (UTC)</th>
+        </tr>
     {% for song in songs %}
         {% include '_song.html' %}
     {% endfor %}
+    </table>
 {% endblock %}

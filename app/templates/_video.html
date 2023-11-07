@@ -5,7 +5,7 @@
             {% set interpret = video.interpret | replace(" ", "_") %}
             Titel: {{ video.title }} Länge: {{video.length | round(2)}}<br>
             Video Title: {{ video.video_title }}
-            Url: <a href="{{ video.url }}">{{ video.url }}</a><br>
+            Url: <a href="{{ video.url }}" target="_blank" rel="noopener noreferrer">{{ video.url }}</a><br>
             <a href="{{ url_for('download', params=[video_title, interpret, video.video_id]) }}">download</a>
         </p>
     </tr>

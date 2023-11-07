@@ -6,11 +6,18 @@
 </h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
-    {% for video in videos %}
-    <p>
-        {{ video.path }}<br>
-    </p>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>Pfad zum Video</th>
+        </tr>
+        {% for video in videos %}
+        <tr>
+            <td>
+                {{ video.path }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
     <p>
         {{ form.submit() }}
     </p>
