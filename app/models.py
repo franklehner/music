@@ -4,7 +4,6 @@ from datetime import datetime
 from hashlib import md5
 
 from flask_login import UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db, login
 
@@ -27,11 +26,11 @@ class User(UserMixin, db.Model):  # type: ignore[name-defined]
 
     def set_password(self, password: str):
         """set encrypted password"""
-        self.password_hash = generate_password_hash(password=password)
+        self.password_hash = md5(password.encode("utf-8")).hexdigest()
 
     def check_password(self, password: str) -> bool:
         """Check if hash decrypted is equal to password"""
-        return check_password_hash(self.password_hash, password)
+        return self.password_hash == md5(password.encode("utf-8")).hexdigest()
 
     def avatar(self, size):
         """Use avatar"""

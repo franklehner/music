@@ -106,6 +106,8 @@ def site_user(username: str):
     """user site
     """
     user = User.query.filter_by(username=username).first_or_404()
+    if user.username != current_user.username:
+        return redirect(url_for("index"))
     songs = (
         Song.query
         .filter_by(user_id=user.id)
