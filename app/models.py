@@ -79,7 +79,7 @@ class Video(db.Model):  # type: ignore[name-defined]
     )
     is_converted = db.Column(db.Boolean, default=False)
     path = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, foreign_keys="users.id")
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def __repr__(self):
         return f"<Video {self.title} Video id: {self.video_id}"
