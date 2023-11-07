@@ -10,8 +10,8 @@ from app import db, login
 
 
 class User(UserMixin, db.Model):  # type: ignore[name-defined]
-    """User
-    """
+    """User"""
+
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -26,26 +26,22 @@ class User(UserMixin, db.Model):  # type: ignore[name-defined]
         return f"<User {self.username}>"
 
     def set_password(self, password: str):
-        """set encrypted password
-        """
+        """set encrypted password"""
         self.password_hash = generate_password_hash(password=password)
 
     def check_password(self, password: str) -> bool:
-        """Check if hash decrypted is equal to password
-        """
+        """Check if hash decrypted is equal to password"""
         return check_password_hash(self.password_hash, password)
 
     def avatar(self, size):
-        """Use avatar
-        """
+        """Use avatar"""
         digest = md5(self.email.lower().encode("utf-8")).hexdigest()
 
         return f"https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}"
 
 
 class Song(db.Model):  # type: ignore[name-defined]
-    """Song
-    """
+    """Song"""
 
     __tablename__ = "songs"
 
@@ -67,8 +63,33 @@ class Song(db.Model):  # type: ignore[name-defined]
         return f"<Song {self.title}>"
 
 
+class Video(db.Model):  # type: ignore[name-defined]
+    """Video"""
+
+    __tablename__ = "videos"
+
+    id = db.Column(db.Integer, primary_key=True)
+    video_id = db.Column(db.String(32), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
+    interpret = db.Column(db.String(255), nullable=False)
+    timestamp = db.Column(
+        db.DateTime,
+        index=True,
+        default=datetime.utcnow,
+    )
+    is_converted = db.Column(db.Boolean, default=False)
+    path = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, foreign_keys="users.id")
+
+    def __repr__(self):
+        return f"<Video {self.title} Video id: {self.video_id}"
+
+    def set_converted(self):
+        """set convertede to true"""
+        self.is_converted = True
+
+
 @login.user_loader
 def load_user(user_id: int) -> User:
-    """load user
-    """
+    """load user"""
     return User.query.get(int(user_id))

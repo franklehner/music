@@ -20,6 +20,9 @@ setup(
         "werkzeug",
         "pyjwt",
         "mypy",
+        "pytube",
+        "moviepy",
+        "bs4",
     ],
     test_requires=[
         "pytest",

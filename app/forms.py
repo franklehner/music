@@ -61,3 +61,17 @@ class EditProfileForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired()])
     about_me = TextAreaField("About me", validators=[Length(min=0, max=140)])
     submit = SubmitField("Submit")
+
+
+class SongForm(FlaskForm):
+    """Song form
+    """
+    interpret = StringField("Interpret")
+    title = StringField("Titel")
+    search = SubmitField("Search")
+    download = SubmitField("download")
+
+class ConvertForm(FlaskForm):
+    """Convert Form
+    """
+    submit = SubmitField("Submit")

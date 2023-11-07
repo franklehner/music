@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+    Convert all files for {{ current_user.username }}
+</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {% for video in videos %}
+    <p>
+        {{ video.path }}<br>
+    </p>
+    {% endfor %}
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+{% endblock %}

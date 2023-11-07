@@ -2,7 +2,32 @@
 
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: {{ post.body }}</p></div>
+    {% if form %}
+    <form accept="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.interpret.label }}<br>
+            {{ form.interpret(size=32) }}<br>
+            {% for error in form.interpret.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(size=32) }}<br>
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.search() }}
+        </p>
+    </form>
+    {% endif %}
+    {% if videos %}
+    {% for video in videos %}
+        {% include '_video.html' %}
     {% endfor %}
+    {{ form.download() }}
+    {% endif %}
 {% endblock %}

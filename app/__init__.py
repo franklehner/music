@@ -14,4 +14,4 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = "login"
 
-from app import models, routes  # pylint: disable=wrong-import-position
+from app import models, routes, errors  # pylint: disable=wrong-import-position
