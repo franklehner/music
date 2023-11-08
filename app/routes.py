@@ -193,8 +193,10 @@ def convert():
                 url=video.video_id,
             )
             db.session.add(song)
-
-        db.session.commit()
-        flash("Database committed")
+            try:
+                db.session.commit()
+            except Exception:  # pylint: disable=broad-except
+                flash(f"Problems mit {video.title}")
+                continue
 
     return render_template("convert.html", title="Convert", form=form, videos=videos)
