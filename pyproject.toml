@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools >= 69.0", "wheel"]
+build_backend = "setuptools.build_meta"
+
+[project]
+name = "music"
+dynamic = ["version"]
+dependencies = [
+    "bs4",
+    "click",
+    "flask",
+    "flask-bootstrap",
+    "flask-login",
+    "flask-mail",
+    "flask-migrate",
+    "flask-sqlalchemy",
+    "flask-wtf",
+    "moviepy",
+    "mypy",
+    "pydantic",
+    "pyjwt",
+    "pytube",
+    "werkzeug",
+    "wtforms",
+]
