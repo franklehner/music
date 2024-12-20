@@ -1,4 +1,6 @@
 """Configuration."""
+from __future__ import annotations
+
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))

@@ -1,5 +1,4 @@
-"""ORM - models
-"""
+"""ORM - models."""
 from datetime import datetime
 from hashlib import md5
 
@@ -9,7 +8,7 @@ from app import db, login
 
 
 class User(UserMixin, db.Model):  # type: ignore[name-defined]
-    """User"""
+    """User."""
 
     __tablename__ = "users"
 
@@ -19,28 +18,28 @@ class User(UserMixin, db.Model):  # type: ignore[name-defined]
     password_hash = db.Column(db.String(128))
     songs = db.relationship("Song", backref="author", lazy="dynamic")
     about_me = db.Column(db.String(140))
-    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime, default=datetime.now(datetime.timezone.utc))
 
     def __repr__(self):
         return f"<User {self.username}>"
 
     def set_password(self, password: str):
-        """set encrypted password"""
+        """Set encrypted password."""
         self.password_hash = md5(password.encode("utf-8")).hexdigest()
 
     def check_password(self, password: str) -> bool:
-        """Check if hash decrypted is equal to password"""
+        """Check if hash decrypted is equal to password."""
         return self.password_hash == md5(password.encode("utf-8")).hexdigest()
 
     def avatar(self, size):
-        """Use avatar"""
+        """Use avatar."""
         digest = md5(self.email.lower().encode("utf-8")).hexdigest()
 
         return f"https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}"
 
 
 class Song(db.Model):  # type: ignore[name-defined]
-    """Song"""
+    """Song."""
 
     __tablename__ = "songs"
 
@@ -48,7 +47,7 @@ class Song(db.Model):  # type: ignore[name-defined]
     timestamp = db.Column(
         db.DateTime,
         index=True,
-        default=datetime.utcnow,
+        default=datetime.now(datetime.timezone.utc),
     )
     user_id = db.Column(
         db.Integer,
@@ -63,7 +62,7 @@ class Song(db.Model):  # type: ignore[name-defined]
 
 
 class Video(db.Model):  # type: ignore[name-defined]
-    """Video"""
+    """Video."""
 
     __tablename__ = "videos"
 
@@ -74,7 +73,7 @@ class Video(db.Model):  # type: ignore[name-defined]
     timestamp = db.Column(
         db.DateTime,
         index=True,
-        default=datetime.utcnow,
+        default=datetime.now(datetime.timezone.utc),
     )
     is_converted = db.Column(db.Boolean, default=False)
     path = db.Column(db.String(255), nullable=False)
@@ -84,11 +83,11 @@ class Video(db.Model):  # type: ignore[name-defined]
         return f"<Video {self.title} Video id: {self.video_id}"
 
     def set_converted(self):
-        """set convertede to true"""
+        """Set convertede to true."""
         self.is_converted = True
 
 
 @login.user_loader
 def load_user(user_id: int) -> User:
-    """load user"""
+    """Load user."""
     return User.query.get(int(user_id))
